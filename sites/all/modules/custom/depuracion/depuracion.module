@@ -1,0 +1,50 @@
+<?php
+
+function depuracion_menu() {
+    $items['depuracion'] = array(
+        'title' => 'Depuracion',
+        'page callback' => 'depuracion_depuracion',
+        'type' => MENU_CALLBACK,
+        'access callback' => TRUE,
+    );
+    $items['depuracion/handlers'] = array(
+        'title' => 'Handlers',
+        'page callback' => 'depuracion_handlers',
+        'type' => MENU_CALLBACK,
+        'access callback' => TRUE,
+    );
+    return $items;
+}
+
+function depuracion_handlers(){
+    $handlers = geocoder_handler_info();
+    var_dump(array_keys($handlers));
+}
+
+function depuracion_depuracion() {
+    $result = db_query("SELECT DIRECCION_ESTABLECIMIENTO FROM licencias");
+    $rows = $result->fetchCol();
+    $count = 0;
+    $min_long = -77.090721;
+    $max_long = -76.994762;
+    $min_lat = -12.019341;
+    $max_lat = -12.018838;
+    foreach($rows as $address){
+        $point = geocoder('google', $address);
+        $long = $point->coords[0];
+        $lat = $point->coords[1];
+        //if($min_lat < $lat && $lat < $max_lat && $min_long < $long && $long < $max_long){
+            var_dump($lat);
+            $count++;
+        //}
+    }
+    print $count;
+    /* $address = '4925 Gair Ave, Terrace, BC';
+      $point = geocoder('google', $address);
+      $geoJSON = $point->out('json');
+      $geocode = json_decode($geoJSON);
+
+      // List all available handlers
+      $handlers = geocoder_handler_info();
+      var_dump($geocode->coordinates); */
+}
