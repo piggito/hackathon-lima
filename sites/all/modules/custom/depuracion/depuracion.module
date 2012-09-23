@@ -13,6 +13,12 @@ function depuracion_menu() {
         'type' => MENU_CALLBACK,
         'access callback' => TRUE,
     );
+    $items['paginas-amarillas'] = array(
+        'title' => 'Paginas Amarillas',
+        'page callback' => 'depuracion_paginas',
+        'type' => MENU_CALLBACK,
+        'access callback' => TRUE,
+    );
     return $items;
 }
 
@@ -24,19 +30,21 @@ function depuracion_handlers(){
 function depuracion_depuracion() {
     $result = db_query("SELECT DIRECCION_ESTABLECIMIENTO FROM licencias");
     $rows = $result->fetchCol();
+    print "<pre>".var_dump($rows)."</pre>";
+    var_dump($rows);
     $count = 0;
-    $min_long = -77.090721;
-    $max_long = -76.994762;
-    $min_lat = -12.019341;
-    $max_lat = -12.018838;
+    $min_long = -77.088;
+    $max_long = -77.003;
+    $min_lat = -12.079;
+    $max_lat = -12.034;
     foreach($rows as $address){
         $point = geocoder('google', $address);
         $long = $point->coords[0];
         $lat = $point->coords[1];
-        //if($min_lat < $lat && $lat < $max_lat && $min_long < $long && $long < $max_long){
-            var_dump($lat);
+        if($min_lat < $lat && $lat < $max_lat && $min_long < $long && $long < $max_long){
+            print("Latitud: $lat , Longitud: $long\n");
             $count++;
-        //}
+        }
     }
     print $count;
     /* $address = '4925 Gair Ave, Terrace, BC';
@@ -47,4 +55,37 @@ function depuracion_depuracion() {
       // List all available handlers
       $handlers = geocoder_handler_info();
       var_dump($geocode->coordinates); */
+}
+
+function depuracion_paginas(){
+    $min_long = -77.088;
+    $max_long = -77.003;
+    $min_lat = -12.079;
+    $max_lat = -12.034;
+    $options = array(
+        'headers' => array(
+            'Host' => 'planos.paginasamarillas.com.pe',
+            'User-Agent' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:15.0) Gecko/20100101 Firefox/15.0.1',
+            'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language' => 'es-cl,es;q=0.8,en-us;q=0.5,en;q=0.3',
+            'Accept-Encoding' => 'gzip, deflate',
+            'Connection' => 'keep-alive',
+            'Referer' => 'http://planos.paginasamarillas.com.pe/Mapas/buscarCalle.do',
+            'Cookie' => '2F955FAB25F0658501D2657149373DA0; Amarillas=181.65.213.193.1348355665184102',
+            'Content-Type' => 'application/x-www-form-urlencoded',
+            'Content-Length' => '53',
+        ),
+        'method' => 'POST',
+        'data' => 'ubigeo=lima&calle=av.+camana&numero=620&urbanizacion=',
+        
+    );
+    $result = drupal_http_request('http://planos.paginasamarillas.com.pe/Mapas/buscarCalle.do',$options);
+    $start = strpos($result->data,'marcarPunto(') + 13;
+    $end = strpos($result->data,')',$start);
+    $coords = substr($result->data,$start,$end-$start);
+    $coords = str_replace('"',"",$coords);
+    $coords = explode(",",$coords);
+    if($min_lat < $coords[0] && $coords[0] < $max_lat && $min_long < $coords[1] && $coords[1] < $max_long){
+        var_dump($coords);
+    }
 }
