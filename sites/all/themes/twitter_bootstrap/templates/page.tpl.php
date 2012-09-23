@@ -89,6 +89,12 @@
         <?php print render($page['sidebar_second']); ?>
       </aside>  <!-- /#sidebar-second -->
     <?php endif; ?>
+      
+      <div class="social">
+          <fb:like send="false" layout="box_count" width="200" show_faces="false"></fb:like>
+          <a href="https://twitter.com/share" class="twitter-share-button" data-lang="es" data-count="vertical" data-text="Ubica los establecimientos autorizados por @MuniLima con http://www.arenalabs.pe/encuentrape/">Tweet</a>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+      </div>
 
   </div>
   <footer class="footer container">
