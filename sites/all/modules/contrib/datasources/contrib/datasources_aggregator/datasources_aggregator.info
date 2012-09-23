@@ -1,0 +1,17 @@
+
+name = Datasource Aggregator
+description = "Provide datasources from aggregator feeds."
+dependencies[] = datasources
+dependencies[] = aggregator
+package = Content
+core = 7.x
+
+files[] = datasources_aggregator.module
+files[] = engine.class.inc
+
+; Information added by drupal.org packaging script on 2012-07-10
+version = "7.x-1.0-beta2"
+core = "7.x"
+project = "datasources"
+datestamp = "1341903992"
+
