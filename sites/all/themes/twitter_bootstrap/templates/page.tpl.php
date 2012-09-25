@@ -98,7 +98,7 @@
 
     </div>
     <footer class="footer container">
-        Desarrollado por: Juan Peña <a href="http://www.twitter.com/piggito">(@piggito)</a> , Renzo Arauco <a href="http://www.twitter.com/the_dexter">(@the_dexter)</a> y Antonio Cucho 
+        Desarrollado por: Juan Peña <a href="http://www.twitter.com/piggito">(@piggito)</a> , Renzo Arauco <a href="http://www.twitter.com/the_dexter">(@the_dexter)</a> y Antonio Cucho <a href="http://www.twitter.com/antoniocuga">(@antoniocuga)</a>
 <?php print render($page['footer']); ?>
     </footer>
 </div>
