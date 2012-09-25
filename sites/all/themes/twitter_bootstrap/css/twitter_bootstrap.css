@@ -27,10 +27,6 @@
 }
 */
 
-body {
-  padding-top: 60px;
-}
-
 /* Fix Toolbar for .navbar-fixed-top */
 body.toolbar .navbar-fixed-top {
  top: 30px;
@@ -106,10 +102,32 @@ input.error {
     
 }
 
+#block-block-1 li{
+    
+  margin-bottom: 5px;
+  margin-top: 10px;
+   display: block;
+    
+}
+
+#block-block-1 li a{
+    
+   display: block;
+    
+}
+
 #block-menu-menu-giros li{
     
   margin-bottom: 5px;
   margin-top: 10px;
+   display: block;
+    
+}
+
+#block-menu-menu-giros li a{
+    
+  
+   display: block;
     
 }
 
@@ -135,5 +153,4 @@ input.error {
     padding-top: 0px;
     
 }
-
 
